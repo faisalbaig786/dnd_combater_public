@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Faisal">
+    <meta name="description" content="D&amp;D Combat Scenario Tool">
+    <title>D&amp;D Combater Main</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">    
+    <link rel="stylesheet" href="../scripts/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/dice.css">
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Tamma" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=B612+Mono" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>!window.jQuery && document.write('<script src="../scripts/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="../scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../scripts/jquery.ui.touch-punch.min.js"></script>
+    <script src="../scripts/ResizeSensor.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>    
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-storage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+    <script type="text/javascript" src="../js/firebase.js"></script>       
+    <script type="text/javascript" src="../js/utilities.js"></script>   
+    <script type="text/javascript" src="../js/health.js"></script>
+    <script type="text/javascript" src="../js/add.js"></script>
+    <script type="text/javascript" src="../js/background.js"></script>    
+    <script type="text/javascript" src="../js/dice.js"></script>    
+    <script type="text/javascript" src="../js/intro.js"></script>    
+    <script type="text/javascript" src="../js/main.js"></script>
+    <script type="text/javascript" src="../js/cookies.js"></script> 
+    <script type="text/javascript" src="../js/spawn.js"></script>
+</head>
+
+<body>
+    <div id="loading-wrapper">
+        <div id="loading-text">LOADING</div>
+        <div id="loading-content"></div>
+    </div>
+
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../index.html">
+            <img src="../assets/dnd_logo.png" width="112" height="28">
+            </a>
+        
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+
+            <a class="navbar-item" href="../html/main.html">
+                Go to Combater
+            </a>
+
+            <a class="navbar-item" href="../index.html">
+                Home
+            </a>
+        
+            <a class="navbar-item" href="../html/account.html">
+                Account Management
+            </a>
+        
+            </div>
+        
+            <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                <a onclick="mainApp.logOut()" id="log_out" class="button is-light">
+                    <strong>Log Out</strong>
+                </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="danger_mobile_device" class="notification is-danger is-hidden-desktop" style="display: none">
+        <button class="delete"></button>
+        The D&amp;D Combater was <strong>created for large screens</strong> so the whole party can see.
+        Many features <strong>will not</strong> work on mobile/touch devices. 
+    </div>
+
+    <!-- <div id="info_message" class="notification is-info" style="display: none">
+        <button class="delete"></button>
+        D&amp;D Combater is going down for an update on Monday, 2/25, from 7:00am to 8:00am EST. 
+        This update will include the highly anticipated <strong>Custom Background option</strong> &amp; <strong>multiple condition selecting</strong>. 
+    </div> -->
+
+    <div id="dnd_combater_container">
+        <header>
+            <span id="dnd_combater_header">D&amp;D Combater</span>
+            <ul id="main_menu">
+                <li>
+                    <div>Main Menu</div>
+                    <ul>
+                        <li id="night_mode"><div>Night Mode</div></li>
+                        <li><div>Tutorials</div>
+                            <ul>
+                                <li id="general_intro"><div>General Intro</div></li>
+                                <li id="custom_backgrounds_tutorial"><div>Custom Backgrounds</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button id="add_creature" class="ui-button ui-widget ui-corner-all">Add Creature</button>
+            <div id="add_creature_tooltip" style="display: none" title="*Maximum number of creatures created. Delete at least one to make space."></div>
+            <button id="add_background" class="ui-button ui-widget ui-corner-all">Add Background</button>
+            <div id="add_background_tooltip" style="display: none" title="*Maximum number of backgrounds created. Delete at least one to make space."></div>            
+        </header>
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">Adventurers</a></li>
+                <li><a href="#tabs-2">Creatures</a></li>
+                <input type="text" id="search-creature" placeholder="Search Creature" class="hide">
+                <li><a href="#tabs-3">Backgrounds</a></li>
+                <input type="text" id="search-background" placeholder="Search Background" class="hide">                
+                <!-- <li><a href="#tabs-4">Customizable</a></li> -->
+                <!-- <li><a href="#tabs-5">Nature</a></li>                                 -->
+            </ul>
+            <div id="tabs-1">
+
+            </div>
+            <div id="new_adventurer">
+                <span id="plus_sign">+</span><br>
+                <span id="new_adventurer_text">New Adventurer</span>
+            </div>
+            <div id="max_adventurers">*Maximum number of adventurers created. Delete at least one to make space.</div>   
+            <div id="tabs-2">   
+                
+            </div>
+            <div id="tabs-3">   
+                    
+            </div>
+        </div>
+
+        <div id="combat_accordion">
+            <h3>Combat Toolbar</h3>
+            <div id="combat_toolbar">
+                <form action="#">
+                    <fieldset>
+                    <label for="background_selector">Select an Arena</label>
+                    <select name="background_selector" id="background_selector">
+                        <option value="none">None</option>                        
+                        <optgroup label="Abstract">
+                        <option value="carbon">Dark Carbon</option>
+                        <option value="void">The Void</option>                    
+                        </optgroup>
+                        <optgroup label="Terrain">
+                        <option value="grass">Grassy Plain</option>
+                        <option value="desert">Dry Desert</option>
+                        <option value="cobblestone">Cobblestone</option>
+                        <option value="dark_dirt">Dark Dirt</option>
+                        <option value="wood">Hardwood</option>
+                        <option value="dark_wood">Dark Wood</option>                    
+                        <option value="gray_brick">Gray Brick</option>
+                        <option value="cave">Caverns</option>                     
+                        </optgroup>
+                    </select>
+                    </fieldset>
+                </form>
+                <div id="combat_toolbar_buttons">
+                    <button id="clear_arena">Clear Arena</button>     
+                </div>
+                <div id="custom_background_controls">
+                    <fieldset>
+                        <label for="hide_background">Hide Background</label>
+                        <input type="checkbox" name="checkbox-1" id="hide_background">
+                        <label for="move_background">Move Background</label>
+                        <input type="checkbox" name="Move Background" id="move_background">
+                        <label for="hide_characters">Hide Characters</label>
+                        <input type="checkbox" name="Hide Characters" id="hide_characters">
+                    </fieldset>  
+                </div>         
+            </div>
+        </div>
+
+        <div id="combat_arena" class="black_grid">
+            <canvas></canvas>
+        </div>
+
+        <div id="initiative_dice_container">
+            <div id="turn_order">
+                <div id="initiative_tracker_text">Initiative Tracker</div>
+                <span style="margin: 0 10px 0 10px;">first&#60;</span>
+                <ul id="sortable_turn_order">
+                    
+                </ul>
+                <span style="margin: 0 10px 0 10px;">&#62;last</span>
+            </div>
+
+            <div id="dnd_dice">
+                <input onclick="d4Roll()" type="image" img src="../assets/dice/d4.png">
+                
+                <input onclick="d6Roll()" type="image" img src="../assets/dice/d6.png"></button>
+                
+                <input onclick="d8Roll()" type="image" img src="../assets/dice/d8.png"></button>
+
+                <input onclick="d10Roll()" type="image" img src="../assets/dice/d10.png"></button>
+                
+                <input onclick="d12Roll()" type="image" img src="../assets/dice/d12.png"></button>
+                
+                <input onclick="d20Roll()" type="image" img src="../assets/dice/d20.png"></button>
+                
+                <div class="result">
+                    <div id="display"></div>
+                </div>                
+            </div>
+        </div>
+
+        <div id="context_menu_sprite">
+            <div id="status" class="hide">
+                <label for="status">Select a Status</label>
+                <select name="status" id="status_selector">
+                    <option>Alive</option>
+                    <option>Dead</option>
+                    <option>Unconscious</option>
+                    <option>On the Edge</option>
+                </select>
+            </div>
+            <!-- <div id="condition" class="hide">
+                <label for="condition">Select a Condition</label>
+                <select name="condition" id="condition_selector">
+                    <option>None</option>
+                    <option>Blinded</option>
+                    <option>Charmed</option>
+                    <option>Deafened</option>
+                    <option>Fatigued</option>
+                    <option>Frightened</option>
+                    <option>Grappled</option>                
+                    <option>Incapacitated</option>
+                    <option>Invisible</option>                
+                    <option>Paralyzed</option>
+                    <option>Petrified</option>                
+                    <option>Poisoned</option>                
+                    <option>Prone</option>                
+                    <option>Restrained</option>
+                    <option>Stunned</option>                                
+                    <option>Unconscious</option>                                
+                </select>
+            </div> -->
+            <div id="conditions_container" class="hide">
+                <label for="conditions_selector_accordion">Select Conditions</label>            
+                <div id="conditions_selector_accordion">
+                    <h3></h3>
+                    <div id="conditions_selector">
+                        <label for="Blinded">Blinded</label>
+                        <input type="checkbox" name="blinded" id="Blinded">
+                        <label for="Charmed">Charmed</label>
+                        <input type="checkbox" name="charmed" id="Charmed">
+                        <label for="Deafened">Deafened</label>
+                        <input type="checkbox" name="deafened" id="Deafened">
+                        <label for="Fatigued">Fatigued</label>
+                        <input type="checkbox" name="fatigued" id="Fatigued">
+                        <label for="Frightened">Frightened</label>
+                        <input type="checkbox" name="frightened" id="Frightened">
+                        <label for="Grappled">Grappled</label>
+                        <input type="checkbox" name="grappled" id="Grappled">
+                        <label for="Incapacitated">Incapacitated</label>
+                        <input type="checkbox" name="incapacitated" id="Incapacitated">
+                        <label for="Invisible">Invisible</label>
+                        <input type="checkbox" name="invisible" id="Invisible">
+                        <label for="Paralyzed">Paralyzed</label>
+                        <input type="checkbox" name="paralyzed" id="Paralyzed">
+                        <label for="Petrified">Petrified</label>
+                        <input type="checkbox" name="petrified" id="Petrified">
+                        <label for="Poisoned">Poisoned</label>
+                        <input type="checkbox" name="poisoned" id="Poisoned">
+                        <label for="Prone">Prone</label>
+                        <input type="checkbox" name="prone" id="Prone">
+                        <label for="Restrained">Restrained</label>
+                        <input type="checkbox" name="restrained" id="Restrained">
+                        <label for="Stunned">Stunned</label>
+                        <input type="checkbox" name="stunned" id="Stunned">
+                        <label for="Unconscious">Unconscious</label>
+                        <input type="checkbox" name="unconscious" id="Unconscious">
+                    </div>
+                </div>
+            </div>
+            <div id="elevation" class="hide">
+                <p>
+                    <label for="elevation_amount">Elevation (5ft increments):</label>
+                    <input type="text" id="elevation_amount" readonly style="border:0; color:#000000; font-weight:bold;">
+                </p>
+                <div id="elevation_slider"></div>
+            </div>
+        </div>
+
+        <div id="context_menu_object">
+            
+        </div>
+
+        <div id="context_menu_add_adventurer">
+            <form id="adventurer_form" class="hide" action="#">
+                <div>Name:&#42;&nbsp;&nbsp;<input id="adventurer_add_name" type="text"></div>
+                <div>Alternate Name:&nbsp;&nbsp;<input id="adventurer_add_alt" type="text" title="If the adventurer's name is very long, type it in Alternate Name and enter a shortened version in Name. Otherwise, leave Alternate Name blank."></div>
+                <div>Image File:&#42;&nbsp;&nbsp;
+                    <input id="adventurer_upload" type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="adventurerImage"
+                    title="The uploaded file must be an image and less than 5MB.">
+                </div>            
+                <div id="adventurer_upload_bar"></div>
+                <div id="successfully_added_adventurer" style="display: none">Successfully added adventurer!</div>
+                <div id="unsuccessfully_added_adventurer_empty" class="unsuccessfully_added" style="display: none">Could not add adventurer because the Name or Image File is missing.</div>
+                <div id="unsuccessfully_added_adventurer_name" class="unsuccessfully_added" style="display: none">Could not add adventurer because the Name or Alternate Name provided is already taken by another adventurer or creature.</div>                
+                <div id="unsuccessfully_added_adventurer_file" class="unsuccessfully_added" style="display: none">Could not add adventurer because another adventurer or creature already uses an image with the same file name.</div>                
+                <div id="unsuccessfully_added_adventurer_image" class="unsuccessfully_added" style="display: none">Could not add adventurer. Ensure your image meets the guidelines in the Image File upload tooltip.</div>                                                    
+            </form>
+        </div>
+
+        <div id="context_menu_add_creature">
+            <form id="creature_form" class="hide" action="#">
+                <div>Name:&#42;&nbsp;&nbsp;<input id="creature_add_name" type="text"></div>
+                <div>Alternate Name:&nbsp;&nbsp;<input id="creature_add_alt" type="text" title="If the creature's name is very long, type it in Alternate Name and enter a shortened version in Name. Otherwise, leave Alternate Name blank."></div>
+                <div>
+                    <fieldset>
+                        <label for="creature_add_size">Size:&#42;&nbsp;&nbsp;</label>
+                        <select name="creature_add_size" id="creature_add_size">
+                            <option value="tiny">Tiny</option>                        
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                            <option value="huge">Huge</option>
+                            <option value="gargantuan">Gargantuan</option>                                        
+                        </select>
+                    </fieldset>
+                </div>
+                <div>Image File:&#42;&nbsp;&nbsp;
+                    <input id="creature_upload" type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="creatureImage"
+                    title="The uploaded file must be an image and less than 5MB.">
+                </div>            
+                <div id="creature_upload_bar"></div>
+                <div id="successfully_added_creature" style="display: none">Successfully added creature!</div>
+                <div id="unsuccessfully_added_creature_empty" class="unsuccessfully_added" style="display: none">Could not add creature because the Name or Image File is missing.</div>
+                <div id="unsuccessfully_added_creature_name" class="unsuccessfully_added" style="display: none">Could not add creature because the Name or Alternate Name provided is already taken by another creature or adventurer.</div>                
+                <div id="unsuccessfully_added_creature_file" class="unsuccessfully_added" style="display: none">Could not add creature because another creature or adventurer already uses an image with the same file name.</div>                
+                <div id="unsuccessfully_added_creature_image" class="unsuccessfully_added" style="display: none">Could not add creature. Ensure your image meets the guidelines in the Image File upload tooltip.</div>                                                                                        
+            </form>
+        </div>
+
+        <div id="context_menu_add_background">
+            <form id="background_form" class="hide" action="#">
+                <div>Name:&#42;&nbsp;&nbsp;<input id="background_add_name" type="text"></div>
+                <div>Image File:&#42;&nbsp;&nbsp;
+                    <input id="background_upload" type="file" accept="image/jpeg, image/jpg, image/png, image/gif" name="backgroundImage"
+                    title="The uploaded file must be an image and less than 20MB.">
+                </div>            
+                <div id="background_upload_bar"></div>
+                <div id="successfully_added_background" style="display: none">Successfully added background!</div>
+                <div id="unsuccessfully_added_background_empty" class="unsuccessfully_added" style="display: none">Could not add background because the Name or Image File is missing.</div>
+                <div id="unsuccessfully_added_background_image" class="unsuccessfully_added" style="display: none">Could not add background. Ensure your image meets the guidelines in the Image File upload tooltip.</div>                                                    
+            </form>
+        </div>
+
+        <ul id="context_menu_delete_adventurer">
+            <!-- <li id=""><div>Inventory</div></li> 
+            <li id="change_image_adventurer"><div>Edit</div></li>  -->
+            <li id="delete_adventurer"><div>Delete</div></li>       
+        </ul>
+
+        <ul id="context_menu_delete_creature">
+            <!-- <li id="change_image_creature"><div>Edit</div></li>  -->
+            <li id="delete_creature"><div>Delete</div></li>       
+        </ul>
+
+        <ul id="context_menu_delete_background">
+            <!-- <li id="change_image_creature"><div>Edit</div></li>  -->
+            <li id="delete_background"><div>Delete</div></li>       
+        </ul>
+
+        <div id="delete-adventurer-confirm" title="Delete this adventurer?" class="hide">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>This adventurer will be permanently deleted and cannot be recovered.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Are you sure?</p>
+        </div>
+
+        <div id="delete-creature-confirm" title="Delete this creature?" class="hide">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>This creature will be permanently deleted and cannot be recovered. Are you sure?</p>
+        </div>
+
+        <div id="delete-background-confirm" title="Delete this background?" class="hide">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>This background will be permanently deleted and cannot be recovered.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Are you sure?</p>
+        </div>
+
+        <audio id="audio_smallhealth">
+            <source src="../audio/small_health.wav" type="audio/wav">
+        </audio>
+
+        <audio id="audio_largehealth">
+            <source src="../audio/large_health.mp3" type="audio/mpeg">
+        </audio>
+
+        <audio id="audio_smalldamage">
+            <source src="../audio/small_damage.wav" type="audio/wav">
+        </audio>
+
+        <audio id="audio_largedamage">
+            <source src="../audio/large_damage.wav" type="audio/wav">
+        </audio>
+    </div>
+    
+    <footer class="footer has-background-dark has-text-light">
+        <div class="content has-text-centered">
+            <div class="is-7">Support this work for improvements and upkeep. Thank you!</div><br>
+            <div id="donation_box">
+                <a href='https://ko-fi.com/B0B1QN1F' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_donations" />
+                    <input type="hidden" name="business" value="9VRQUMYHKYP3W" />
+                    <input type="hidden" name="item_name" value="Help maintain & improve dndcombater.com" />
+                    <input type="hidden" name="currency_code" value="USD" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                </form>
+            </div>
+            <br>                                                 
+            <strong class="has-text-light">D&amp;D Combater</strong> by Faisal Baig.<br>
+            D&amp;D Combater is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC.<br>
+            Version 1.0&nbsp;&nbsp;&nbsp;<a href="../html/credits.html">Credits &amp; Attributions</a>
+        </div>
+    </footer>
+</body>

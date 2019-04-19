@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>D&amp;D Combater Login Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>      
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css"/>      
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="icon" href="assets/coat-of-arms.png">        
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>!window.jQuery && document.write('<script src="scripts/jquery-3.3.1.min.js"><\/script>')</script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>            
+        <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>    
+        <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>    
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+        <script src="js/firebase.js"></script>        
+        <script src="js/index.js"></script>
+        <script src="js/cookies.js"></script>        
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+        <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+    </head>
+    <body>
+
+        <div id="white-fade-in"></div>
+
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="index.html">
+                <img src="assets/dnd_logo.png" width="112" height="28">
+                </a>
+            
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                </a>
+            </div>
+            
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+
+                <a class="navbar-item" href="html/main.html">
+                    Go to Combater 
+                    <span id="sign_in_required" class="is-size-7" style="display: none">
+                        &nbsp;&#40;Sign In Required&#41;
+                    </span>
+                </a>
+
+                <a class="navbar-item" href="index.html">
+                    Home
+                </a>
+            
+                <a class="navbar-item" href="html/account.html">
+                    Account Management
+                </a>
+            
+                </div>
+            
+                <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                    <a onclick="mainApp.logOut()" id="log_out" class="button is-light">
+                        <strong>Log Out</strong>
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="warning_mobile_device" class="notification is-warning is-hidden-desktop" style="display: none">
+            <button class="delete"></button>
+            The D&amp;D Combater was <strong>created for large screens</strong> so the whole party can see.
+            Many features <strong>will not</strong> work on mobile/touch devices. 
+        </div>
+
+        <div id="info_message" class="notification is-info" style="display: none">
+            <button class="delete"></button>
+            D&amp;D Combater is going down for an update on Monday, 2/25, from 7:00am to 8:00am EST. 
+            This update will include the highly anticipated <strong>Custom Background option</strong> &amp; <strong>multiple condition selecting</strong>. 
+        </div>
+
+        <picture id="login_background">
+            <source media="(min-width: 1560px)" srcset="assets/dnd_login_background_blurred_uwide.png">
+            <source media="(min-width: 1310px)" srcset="assets/dnd_login_background_blurred_desktop.png">
+            <source media="(min-width: 1088px)" srcset="assets/dnd_login_background_blurred_small.png">
+            <img src="assets/dnd_login_background_blurred_small.png" alt="DnD Combater Login Background" style="width:auto;">                
+        </picture>
+
+        <div id="combater_title" class="">
+            D&amp;D Combater
+        </div>
+
+        <div id="welcome_container" class="container has-text-centered">
+            <div class="notification">
+                <div class="title is-size-3-desktop">The virtual combat experience</div>
+                <div class="subtitle">Free. Convenient. Fun.</div>
+                <div id="get_started">Get started by signing in below or
+                    <a id="learn_more" class="button is-info">Learn More</a>    
+                </div>                    
+            </div>
+        </div>
+
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
+
+        <div id="go_to_combater">
+            <div>You are signed in!</div>
+            <img src="assets/go_to_combater_blurred.png" alt="Go to Combater"><br>
+            <a class="button is-success is-rounded is-medium" href="html/main.html">Go to Combater</a>                   
+        </div>
+
+        <div id="verify_email">
+            <div>A verification email has been sent to you at
+                <span id="user_email" class="has-text-link"></span>.
+            Please confirm your account by following the link provided there. Thank you!
+            </div>
+            <a id="send_another_email" class="button is-link">Send another email</a>
+            <p id="verification_email_sent" class="help is-success" style="display: none">Verification email sent. If you have not received it, verify that the correct email was used and check your spam.</p>
+            <p id="invalid_verification_email" class="help is-danger" style="display: none">Error sending verification email. Ensure that this is your email address.</p>                        
+            <br><br>
+            <div>If the email above is incorrect, type the correct email below and press Submit.</div>
+            <input id="correct_email" class="input" type="email" placeholder="Correct Email">            
+            <a id="send_to_correct_email" class="button is-link">Submit</a>
+            <p id="new_verification_email_sent" class="help is-success" style="display: none">Verification email sent to updated email. If you have not received it, verify that the correct email was entered and check your spam.</p>                        
+            <p id="invalid_new_email" class="help is-danger" style="display: none">This email is invalid.</p>            
+        </div>
+
+        <div id="main_container" class="container is-widescreen">
+                <section class="section">
+                    <h1 class="title is-1 has-text-centered is-spaced">Digital Mat</h1>
+                    <h2 class="subtitle">Enhance your game while keeping the in-person fun of role-playing!</h2>
+                    <div class="content">
+                        <ul>
+                            <li><strong>Cost-Effective: <i class="has-text-success">Completely Free</i></li></strong>
+                            <li><strong>Modular</strong>: Use all or some of the features. Pick and choose</li>
+                            <li><strong>Customizable</strong>: Select a background and add your unique adventurers &amp; creatures</li>
+                        </ul>
+                    </div>
+                
+                </section>
+
+            <div class="notification">
+                <h1 class="title">A new way to visualize D&amp;D combat for the whole party</h1>
+                <h2 class="subtitle">Created for laptop, desktop, or TV* use</h2>
+                <nav id="devices" class="level">
+                    <div class="level-item">
+                        <figure class="image is-128x128">
+                            <img src="assets/laptop.png" alt="Laptop Icon">   
+                        </figure>             
+                    </div>
+                    <div class="level-item">
+                        <figure class="image is-128x128">
+                            <img src="assets/desktop.png" alt="Desktop Icon">   
+                        </figure>              
+                    </div>
+                    <div class="level-item">
+                        <figure class="image is-128x128">
+                            <img src="assets/tv.png" alt="TV Icon">
+                        </figure>                
+                    </div>
+                </nav>
+                <h2 class="subtitle is-7">*Using a TV as a large monitor with a PC</h2>
+            </div>
+
+            <section class="section">
+                <div class="columns is-vcentered">
+                    <div class="column">
+                        <h1 class="title is-1">Character Control</h1>
+                        <h2 class="subtitle">
+                        Update combat effects on characters including <strong>status</strong>, <strong>conditions</strong>, &amp; <strong>elevation</strong>
+                        </h2>
+                    </div>
+                    <div class="column has-text-right">
+                        <picture id="character_control_gif">
+                            <source srcset="assets/character_control.gif">
+                            <img src="assets/character_control.gif" alt="Character Control Gif">                
+                        </picture>
+                    </div>
+                </div>
+            </section>
+
+            <div class="notification">
+                <h1 class="title">Easy to set up with new or ongoing adventures</h1>
+                <div id="easy_setup" class="columns is-multiline">
+                    <div id="character_test_images" class="column is-one-third">
+                        <img src="assets/test_adventurers/archer.png" alt="Archer Sample" class="adventurer_green">                
+                        <img src="assets/test_adventurers/knight.png" alt="Knight Sample" class="adventurer_green">                
+                        <img src="assets/test_adventurers/swordsman.png" alt="Swordsman Sample" class="adventurer_green">              
+                        <img src="assets/test_creatures/wizard.jpg" alt="Wizard Sample" class="creature_red">                                        
+                        <img src="assets/test_creatures/dragon.png" alt="Dragon Sample" class="creature_red">                
+                    </div>
+                    <div class="column is-one-third dnd_mobile">
+                        <h2 class="subtitle">Add images of your adventurers &amp; creatures</h2>
+                    </div>
+                    <div id="right_arrow" class="column is-one-third has-text-centered">
+                        <img src="assets/right_arrow.png" alt="Right Arrow">                                            
+                    </div>
+                    <div id="combat_sample" class="column is-one-third">
+                        <img src="assets/combat_sample.png" alt="Combat Sample">                                            
+                    </div>
+                    <div class="column is-one-third dnd_desktop">
+                        <h2 class="subtitle">Add images of your adventurers &amp; creatures</h2>
+                    </div>
+                    <div class="column is-one-third dnd_desktop">
+                    </div>
+                    <div class="column is-one-third">
+                        <h2 class="subtitle">Play!</h2>                            
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <h1 class="title is-1 has-text-centered">Variety of Backgrounds</h1>
+                <div class="columns is-multiline is-hidden-touch">
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/grass.png" alt="Grass Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/desert.png" alt="Desert Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/cobblestone.png" alt="Cobblestone Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/hardwood.png" alt="Hardwood Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/caverns.png" alt="Caverns Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/dark_wood.png" alt="Dark Wood Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/brick.png" alt="Brick Sample" class="shadow_effect">
+                    </div>
+                    <div class="column is-one-quarter">
+                        <img src="assets/background_images/void.png" alt="Void Sample" class="shadow_effect">
+                    </div>
+                </div>
+                <div class="slick-mobile is-hidden-desktop">
+                    <div><img src="assets/background_images/grass.png" alt="Grass Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/desert.png" alt="Desert Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/cobblestone.png" alt="Cobblestone Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/hardwood.png" alt="Hardwood Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/caverns.png" alt="Caverns Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/dark_wood.png" alt="Dark Wood Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/brick.png" alt="Brick Sample" class="shadow_effect"></div>
+                    <div><img src="assets/background_images/void.png" alt="Void Sample" class="shadow_effect"></div>
+                </div>
+                <h1 class="title has-text-centered">And add your own!</h1>
+                <img id="custom_background_sample" src="assets//custom_background_sample.png" alt="Custom Background Sample">                
+            </section>
+            
+            <div class="notification">
+                <h1 class="title">Other features include...</h1>
+                <div id="other_features" class="columns is-vcentered">
+                    <div class="column is-one-half">
+                        <img src="assets/initiative_tracker.png" alt="Initiative Tracker Sample">
+                        <div class="is-size-4">Initiative Tracker</div>
+                    </div>
+                    <div class="column is-one-half">
+                        <img src="assets/dice_roller.png" alt="Dice Roller Sample" id="dice_roller_sample">
+                        <div class="is-size-4">Dice Roller</div>                        
+                    </div>
+                </div>
+                <h1 class="title">...with more to come!</h1>
+                <div class="has-text-centered">
+                    <a id="scroll_top" class="button is-medium is-info">Sign in</a>
+                </div>                
+            </div>
+        </div>
+
+        <footer class="footer has-background-dark has-text-light">
+            <div class="content has-text-centered">
+                <div class="is-7">Support this work for improvements and upkeep. Thank you!</div><br>
+                <div id="donation_box">
+                    <a href='https://ko-fi.com/B0B1QN1F' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_donations" />
+                        <input type="hidden" name="business" value="9VRQUMYHKYP3W" />
+                        <input type="hidden" name="item_name" value="Help maintain & improve dndcombater.com" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+                </div>
+                <br>                                                 
+                <strong class="has-text-light">D&amp;D Combater</strong> by Faisal Baig.<br>
+                D&amp;D Combater is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC.<br>
+                Version 1.0&nbsp;&nbsp;&nbsp;<a href="html/credits.html">Credits &amp; Attributions</a>
+            </div>
+        </footer>
+    </body>
+</html>

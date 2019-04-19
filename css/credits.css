@@ -1,0 +1,13 @@
+.navbar-item img {
+    max-height: 90%;
+}
+
+#donation_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donation_box form {
+    margin-left: 20px;
+}

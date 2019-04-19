@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>D&amp;D Combater Account Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="icon" href="../assets/coat-of-arms.png">            
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>!window.jQuery && document.write('<script src="../scripts/jquery-3.3.1.min.js"><\/script>')</script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-app.js"></script>            
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase-storage.js"></script>        
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <script src="../js/firebase.js"></script>        
+    <script src="../js/account.js"></script>        
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+</head> 
+<body>
+
+        <div id="white-fade-in"></div>
+
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="../index.html">
+                <img src="../assets/dnd_logo.png" width="112" height="28">
+                </a>
+            
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                </a>
+            </div>
+            
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+
+                <a class="navbar-item" href="../html/main.html">
+                    Go to Combater
+                </a>
+
+                <a class="navbar-item" href="../index.html">
+                    Home
+                </a>
+            
+                <a class="navbar-item" href="account.html">
+                    Account Management
+                </a>
+            
+                </div>
+            
+                <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                    <a onclick="mainApp.logOut()" id="log_out" class="button is-light">
+                        <strong>Log Out</strong>
+                    </a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </nav> 
+
+        <div id="account_management" class="container">
+            <h1 class="title is-1 has-text-centered">Account Management</h1>
+
+            <div id="noauth_management">
+                <section class="section">
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle is-3">Recover your account</h1>                    
+                            <h1 class="subtitle">Type your email in below and press Submit.</h1>                    
+                            <div class="control has-icons-left">
+                                <input id="recovery_email" class="input" type="email" placeholder="Email">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <p id="invalid_email" class="help is-danger" style="display: none">This email is invalid.</p>
+                                <p id="recovery_email_sent" class="help is-success" style="display: none">Recovery email sent. If you have not received it, verify that the correct email was entered and check your spam.</p>
+                                <p id="email_nonexistent" class="help is-danger" style="display: none">An account with this email does not exist.</p>                            
+                                <a id="recovery_email_button" class="button is-link">Submit</a>                          
+                            </div>
+                            <h2 class="subtitle is-6">If you'd like to view other account management options, please <a href="../index.html">log in</a> first. Thank you.</h2>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="auth_management">
+                <section class="section">
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle is-3">Change your password</h1>                    
+                            <h1 class="subtitle">Type your email, current password, and new password in below and press Submit.</h1>                    
+                            <div id="change_password_container" class="control has-icons-left has-icons-right">
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input id="account_email" class="input" type="email" placeholder="Email">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input id="current_password" class="input" type="password" placeholder="Current Password">                            
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <p id="invalid_credential" class="help is-danger" style="display: none">Incorrect email and/or password. Please verify and try again.</p>
+                                    </p>
+                                </div>
+
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input id="new_password" class="input" type="password" placeholder="New Password">
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input id="confirm_new_password" class="input" type="password" placeholder="Confirm New Password">   
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-lock"></i>
+                                        </span>
+                                        <p id="invalid_confirmation" class="help is-danger" style="display: none">The new password and confirmation do not match. Please try again.</p>
+                                        <p id="invalid_password_complexity" class="help is-danger" style="display: none">Strong passwords have at least 6 characters and a mix of letters and numbers. Please try again.</p>
+                                        <p id="password_changed" class="help is-success" style="display: none">Password changed successfully.</p>                                                                                                     
+                                    </p>
+                                </div>
+                                <a id="password_change_button" class="button is-link">Submit</a>                          
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle">Permanently delete all of your D&amp;D Combater <strong>Adventurers</strong> from your account.</h1>                    
+                            <a class="button is-warning" onclick="toggleDeleteAdventurersMessage()">Delete All Adventurers</a>
+                            <article id="delete_adventurers_message" class="message is-danger" style="display: none">
+                                <div class="message-body">
+                                    All of your adventurers will be <strong>permanently deleted</strong> and cannot be recovered.<br>
+                                    Are you sure?<br>
+                                    <a id="delete_adventurers_button" class="button is-danger">Yes, Delete All</a>
+                                    <a class="button" onclick="toggleDeleteAdventurersMessage()">No, Cancel</a>
+                                    <p id="all_adventurers_deleted" class="help is-danger" style="display: none">All adventurers have been deleted.</p>                                                            
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle">Permanently delete all of your D&amp;D Combater <strong>Creatures</strong> from your account.</h1>                    
+                            <a class="button is-warning" onclick="toggleDeleteCreaturesMessage()">Delete All Creatures</a>
+                            <article id="delete_creatures_message" class="message is-danger" style="display: none">
+                                <div class="message-body">
+                                    All of your creatures will be <strong>permanently deleted</strong> and cannot be recovered.<br>
+                                    Are you sure?<br>
+                                    <a id="delete_creatures_button" class="button is-danger">Yes, Delete All</a>
+                                    <a class="button" onclick="toggleDeleteCreaturesMessage()">No, Cancel</a>
+                                    <p id="all_creatures_deleted" class="help is-danger" style="display: none">All creatures have been deleted.</p>                                                                                                
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle">Permanently delete all of your D&amp;D Combater <strong>Backgrounds</strong> from your account.</h1>                    
+                            <a class="button is-warning" onclick="toggleDeleteBackgroundsMessage()">Delete All Backgrounds</a>
+                            <article id="delete_backgrounds_message" class="message is-danger" style="display: none">
+                                <div class="message-body">
+                                    All of your backgrounds will be <strong>permanently deleted</strong> and cannot be recovered.<br>
+                                    Are you sure?<br>
+                                    <a id="delete_backgrounds_button" class="button is-danger">Yes, Delete All</a>
+                                    <a class="button" onclick="toggleDeleteBackgroundsMessage()">No, Cancel</a>
+                                    <p id="all_backgrounds_deleted" class="help is-danger" style="display: none">All backgrounds have been deleted.</p>                                                                                                
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">                
+                    <div class="container">
+                        <div class="notification">
+                            <h1 class="subtitle">Permanently delete your <strong>entire D&amp;D Combater account</strong>.</h1>                    
+                            <a class="button is-warning" onclick="toggleDeleteAccountMessage()">Delete Account</a>
+                            <article id="delete_account_message" class="message is-danger" style="display: none">
+                                <div class="message-body">
+                                    Your account, including your adventurers and creatures, will be <strong>permanently deleted</strong> and cannot be recovered.<br>
+                                    Are you sure?<br>
+                                    <div class="field">
+                                        <p class="control has-icons-left">
+                                            <input id="email_account_deletion" class="input" type="email" placeholder="Email">
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+    
+                                    <div class="field">
+                                        <p class="control has-icons-left">
+                                            <input id="password_account_deletion" class="input" type="password" placeholder="Current Password">                            
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-lock"></i>
+                                            </span>
+                                            <p id="invalid_credential_deletion" class="help is-danger" style="display: none">Incorrect email and/or password. Please verify and try again.</p>
+                                        </p>
+                                    </div>
+                                    <a id="delete_account_button" class="button is-danger">Yes, Delete All</a>
+                                    <a class="button" onclick="toggleDeleteAccountMessage()">No, Cancel</a>
+                                    <p id="account_deleted" class="help is-danger" style="display: none">Your account has been deleted.</p>                                                                                                                                    
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <footer class="footer has-background-dark has-text-light">
+            <div class="content has-text-centered">
+                <div class="is-7">Support this work for improvements and upkeep. Thank you!</div><br>
+                <div id="donation_box">
+                    <a href='https://ko-fi.com/B0B1QN1F' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_donations" />
+                        <input type="hidden" name="business" value="9VRQUMYHKYP3W" />
+                        <input type="hidden" name="item_name" value="Help maintain & improve dndcombater.com" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+                </div>
+                <br>                                                 
+                <strong class="has-text-light">D&amp;D Combater</strong> by Faisal Baig.<br>
+                D&amp;D Combater is not affiliated with, endorsed, sponsored, or specifically approved by Wizards of the Coast LLC.<br>
+                Version 1.0&nbsp;&nbsp;&nbsp;<a href="../html/credits.html">Credits &amp; Attributions</a>
+            </div>
+        </footer>
+</body>
+</html>

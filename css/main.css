@@ -1,0 +1,1010 @@
+#dnd_combater_container {
+    margin: 8px;
+    box-sizing: unset;
+    line-height: normal;
+}
+
+body, button, input, select, textarea {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#dnd_combater_container p {
+    margin: 1em 0px;
+}
+
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+
+.ui-tabs-anchor {
+    outline-style:none;
+    box-shadow:none;
+    border-color:transparent;
+}
+
+.sprite_image {
+    max-width: 175px;
+    max-height: 200px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+}
+
+#tabs .sprite_image:active {
+    transform: scale(0.92);
+}
+
+#tabs-1 .sprite_image:hover {
+    box-shadow: 0px 0px 20px 2px rgb(255, 255, 255);
+
+    transition: .2s ease;
+}
+
+#tabs-2 .sprite_image:hover {
+    box-shadow: 0px 0px 20px 2px rgb(255, 45, 45);
+
+    transition: .2s ease;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#initiative_dice_container {
+    display: flex;
+}
+
+#tabs-1 {
+    padding: 1em;
+    float: right;
+    width: 40em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#tabs-2, #tabs-3 {
+    overflow: scroll;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+#ui-id-1 {
+    padding-right: 92px;
+}
+
+#ui-id-2 {
+    padding-right: 115px;
+}
+
+#ui-id-3 {
+    padding-right: 86px;
+}
+
+.character_container {
+    align-self: flex-end;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0 5px 0 5px;
+}
+
+.background_container {
+    align-self: flex-end;
+    text-align: center;
+    white-space: nowrap;
+    margin: 0 5px 0 5px;
+}
+
+.spawned_sprite, .spawned_object {
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+}
+
+.spawned_sprite:not(.bigger_enemy) {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 130px;
+}
+
+#dnd_combater_container header, #turn_order {
+    color: #ffffff;
+    border: 5px solid #9fda58;
+    background-color: #4c4c4c;
+    font-family: 'Major Mono Display', monospace;    
+    font-size: 2rem;
+    padding: 5px;
+    border-radius: 6px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    width: 958px;
+}
+
+#dnd_combater_container header {
+    height: 36px;
+}
+
+#main_menu {
+    float: right;
+    font-size: 15px;
+    position: relative;
+    top: 5px;
+    margin: 0 10px;
+    border: none;
+}
+
+#main_menu.ui-menu .ui-menu-item {
+    background-color: #1b1613;
+}
+
+header .ui-menu .ui-menu-item-wrapper {
+    position: relative;
+    padding: 3px .4em 3px .8em;
+    width: 100px;
+}
+
+#dnd_combater_container #version {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    padding: 10px 10px;
+    width: 300px;
+    background-color: #ffffff;   
+}
+#dnd_combater_container #version > span {
+    cursor: pointer;
+}
+
+#dnd_combater_container #version ul {
+    padding-left: 10px;
+}
+
+#dnd_combater_container #combat_accordion {
+    width: 977px;
+    margin-top: 10px;
+}
+
+#dnd_combater_container #combat_accordion div {
+    height: 84px;
+}
+
+.ui-accordion .ui-accordion-header {
+    outline: none;
+}
+
+.ui-accordion-content form {
+    display: flex;
+}
+
+.ui-accordion-content fieldset {
+    width: 285px;
+}
+
+#combat_arena {
+    border: 5px solid #000000;
+    background-color: #ffffff;
+    width: 1323px;
+    height: 563.200px;
+    display: flex;
+    position: relative;
+    margin: 10px 0 10px 0;
+    border-radius: 6px;
+}
+
+#combat_toolbar {
+    display: flex;
+}
+
+#combat_toolbar_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#combat_toolbar .ui-visual-focus {
+    box-shadow: unset;
+}
+
+#custom_background_controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+}
+
+#custom_background_controls fieldset {
+    font-size: 0.8rem;
+    width: 430px;
+}
+
+#clear_arena {
+    height: 24px;
+    margin-left: 10px;
+}
+
+.black_grid:after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image:
+      linear-gradient(
+        90deg,
+        rgb(0, 0, 0) 1px,
+        transparent 0
+        ),
+      linear-gradient(
+        180deg,
+        rgb(0, 0, 0) 1px,
+        transparent 0
+        );
+    background-size: 
+      150px, 100% 150px,
+      15px, 100% 15px;
+    pointer-events: none;
+}
+
+.white_grid:after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-image:
+      linear-gradient(
+        90deg,
+        rgb(255, 255, 255) 1px,
+        transparent 0
+        ),
+      linear-gradient(
+        180deg,
+        rgb(255, 255, 255) 1px,
+        transparent 0
+        );
+    background-size: 
+      150px, 100% 150px,
+      15px, 100% 15px;
+    pointer-events: none;
+}
+
+.ui-dialog[aria-describedby="context_menu_sprite"], .ui-dialog[aria-describedby="context_menu_object"] {
+    opacity: 0.8;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    padding: 0;
+}
+
+.ui-dialog #context_menu_object {
+    padding: 0;
+}
+
+.ui-selectmenu-menu {
+    z-index: 102;
+}
+
+#conditions_selector_accordion .ui-accordion-header-icon.ui-icon.ui-icon-triangle-1-e,
+#conditions_selector_accordion .ui-accordion-header-icon.ui-icon.ui-icon-triangle-1-s {
+    left: 198.5px;
+    transform: rotate(90deg) !important;
+    bottom: 5px;
+    background-position: -32px -16px;
+}
+
+#ui-id-5 {
+    width: 246.4px;
+}
+
+#conditions_selector_accordion.ui-accordion .ui-accordion-content {
+    width: 246.4px;
+    padding: 0.5em 0.5em;
+}
+
+#conditions_selector {
+    max-height: 145px;
+    position: relative;
+}
+
+#conditions_selector .ui-state-active {
+    color: #ffa822;
+}
+
+#dnd_combater_container .hide {
+    display: none;
+}
+
+#dnd_combater_container .alive {
+    transition: .5s ease-in-out;
+}
+
+#dnd_combater_container .dead {
+    transform: rotate(90deg);
+    transition: .5s ease-in-out;
+    filter: drop-shadow(0 0 15px #282828);
+}
+
+#dnd_combater_container .unconscious {
+    transform: rotate(90deg);
+    transition: .5s ease-in-out;
+    
+    animation: unconscious 2s linear infinite;
+    animation-direction: alternate;
+    filter: drop-shadow(0 0 5px #4456f4);
+}
+
+@keyframes unconscious{
+    from {
+      filter: drop-shadow(0 0 5px #4456f4);
+    }
+    to {
+      filter: drop-shadow(0 0 20px #4456f4);
+    }
+}
+
+#dnd_combater_container .ontheedge {
+    transform: rotate(45deg);
+    transition: .5s ease-in-out;
+
+    animation: ontheedge .3s linear infinite;
+    animation-direction: alternate;
+    filter: drop-shadow(0 0 5px #b90000);
+}
+
+@keyframes ontheedge{
+    from {
+      filter: drop-shadow(0 0 5px #b90000);
+    }
+    to {
+      filter: drop-shadow(0 0 20px #b90000);
+    }
+}
+
+#dnd_combater_container .picked_up {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1);
+}
+
+.object_image {
+    border: none;
+    max-width: 200px;
+    max-height: 200px;
+    cursor: pointer;
+}
+
+.object_image.XL, .object_image.XXL {
+    max-width: none;
+    max-height: none;
+}
+
+.sprite_image.XL, .sprite_image.XXL {
+    max-width: none;
+    max-height: none;
+}
+
+.background_image {
+    border: none;
+    max-width: 200px;
+    max-height: 200px;
+    cursor: pointer;
+}
+
+
+
+
+
+canvas {
+    z-index: 1;
+    cursor: pointer;
+}
+
+
+
+
+
+.grid {
+    background: url('../assets/arena_background/grid.png') repeat;
+    background-size: 60px 60px;
+}
+
+.carbon {
+    background:
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 5px 5px;
+}
+
+.void {
+    background: url('../assets/arena_background/void.jpg') repeat;
+    background-size: 500px 500px;
+}
+
+.grass {
+    background: url('../assets/arena_background/grass.png') repeat;
+    background-size: 200px 200px;    
+}
+
+.desert {
+    background: url('../assets/arena_background/desert.jpg') repeat;
+    background-size: 500px 500px;
+}
+
+.cobblestone {
+    background: url('../assets/arena_background/cobblestone.png') repeat;
+    background-size: 300px 300px;
+}
+
+.dark_dirt {
+    background: url('../assets/arena_background/dark_dirt.png') repeat;
+    background-size: 300px 300px;
+}
+
+.wood {
+    background: url('../assets/arena_background/wood.jpg') repeat;
+    background-size: 100px 100px;
+}
+
+.dark_wood {
+    background: url('../assets/arena_background/dark_wood.png') repeat;
+    background-size: 100px 100px;
+}
+
+.gray_brick {
+    background: url('../assets/arena_background/gray_brick.png') repeat;
+    background-size: 80px 80px;
+}
+
+.cave {
+    background: url('../assets/arena_background/cave.png') repeat;
+    background-size: 300px 300px;
+}
+
+
+
+
+
+
+
+
+
+
+.damage-bar {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: auto;
+    min-width: 100px;
+    height: 24px;
+    padding: 5px;
+    background: #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+    font-family: 'Baloo Tamma', cursive;
+    color: #ffffff;
+}
+
+.damage-bar input {
+    box-sizing: unset;
+}
+
+.damage-bar .bar {
+    background: rgb(199, 7, 7);
+    width: 100%;
+    height: 14px;
+    position: relative;
+}
+
+.damage_container {
+    position: relative;
+    top: -5.6px;
+}
+
+.damage-bar span {
+    font-size: 14px;
+}
+
+.damage_entry {
+    max-width: 25px;
+    height: 15px;
+    margin-left: 2px;
+    font-family: 'Baloo Tamma', cursive;
+    color: #ffffff;    
+    font-size: 15px;
+    text-align: center;
+    background-color: transparent;
+    border-width: 0px;
+}
+
+.damage_entry:invalid {
+    background-color: #ffffff;
+}
+
+.damage_entry:focus {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.health-bar {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100px;
+    height: 24px;
+    padding: 5px;
+    background: #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+.health-bar input {
+    box-sizing: unset;
+}
+
+.bar {
+    background: rgb(7, 199, 7);
+    width: 100%;
+    height: 14px;
+    position: relative;
+
+    transition: .5s width ease-in-out;
+}
+
+.health_entry {
+    top: 0.5px;
+    font-size: 15px;
+    font-family: 'Baloo Tamma', cursive;
+    position: absolute;
+    max-width: 25px;
+    height: 15px;
+    text-align: center;
+    background-color: transparent;
+    border-width: 0px;
+}
+
+.health_entry:invalid {
+    background-color: #ffffff;
+}
+
+.health_entry:focus {
+    background-color: #ffffff;
+}
+
+.partial_health {
+    left: 16px;
+}
+
+.total_health {
+    left: 48px;
+}
+
+.health_slash {
+    position: absolute;
+    top: -2.25px;
+    left: 42.5px;
+    font-weight: bold;
+    font-family: auto;
+    box-sizing: unset;
+    color: #000000;
+}
+
+
+
+.spawned_sprite .condition_elevation_container > input {
+    border-radius: 70%;
+    width: 27px;
+    text-align: center;
+    height: 25px;
+    font-weight: bold;
+}
+
+.condition_badge {
+    border-style: dotted;
+    border-color: #c33004;
+    background-color: orange;
+
+    animation: pulse-me 0.5s ease 4;
+}
+
+  
+@keyframes pulse-me {0% {opacity: 0;}10% {
+        opacity: 0.1;}20% {
+        opacity: 0.2;}30% {
+        opacity: 0.3;}40% {
+        opacity: 0.4;}50% {
+        opacity: 0.6;}70% {
+        opacity: 0.9;}100% {
+        opacity: 1;}
+}
+
+.elevation_badge {
+    border-style: solid;
+    border-color: rgb(0, 132, 255);
+    background-color: rgb(144, 222, 234);
+}
+
+
+#sortable_turn_order {
+    list-style-type: none;
+    padding-left: 0px;
+    display: flex;
+    overflow: auto;
+}
+
+#sortable_turn_order li {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#sortable_turn_order li.ui-state-default {
+    border: none;
+    background: none;
+}
+
+#turn_order {
+    margin-bottom: 50px;
+    height: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#initiative_tracker_text {
+    position: absolute;
+    bottom: 119px;
+    left: 4px;
+    font-size: 12px;
+}
+
+
+#tabs-2.ui-tabs-panel::-webkit-scrollbar-track, #tabs-3.ui-tabs-panel::-webkit-scrollbar-track,
+#sortable_turn_order::-webkit-scrollbar-track, #conditions_selector::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+#tabs-2.ui-tabs-panel::-webkit-scrollbar, #tabs-3.ui-tabs-panel::-webkit-scrollbar,
+#sortable_turn_order::-webkit-scrollbar, #conditions_selector::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#tabs-2.ui-tabs-panel::-webkit-scrollbar-thumb, #tabs-3.ui-tabs-panel::-webkit-scrollbar-thumb, 
+#sortable_turn_order::-webkit-scrollbar-thumb, #conditions_selector::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, #7fe007),
+									   color-stop(0.72, #8edb2f),
+                                       color-stop(0.86, #9fda58));
+}
+
+
+
+
+#danger_mobile_device {
+    position: absolute;
+    z-index: 100;
+    top: 54px;
+}
+
+#info_message {
+    position: absolute;
+    z-index: 99;
+    top: 54px;
+}
+
+
+
+
+
+#search-creature, #search-background { 
+    margin: 10px 5px 10px 5px;
+    padding-left: 3px;
+}
+
+.hiding {
+    margin-left: -100%;
+    opacity: 0.5;
+}
+  
+.hidden {
+    display: none;
+}
+
+.empty {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+
+
+
+#dnd_combater_container header button {
+    width: 150px;
+    font-size: 1rem;
+    float: right;
+    margin-left: 10px;
+}
+
+#add_creature_tooltip {
+    position: absolute;
+    width: 175px;
+    height: 34px;
+    right: 547px;
+    top: 73px;
+}
+
+#add_background_tooltip {
+    position: absolute;
+    width: 175px;
+    height: 34px;
+    right: 742px;
+    top: 73px;
+}
+
+#creature_form div, #adventurer_form div, #background_form div {
+    margin-bottom: 10px;
+}
+
+#creature_form fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+#creature_form input, #adventurer_form input, #creature_add_size, 
+#background_form input {
+    position: absolute;
+    left: 155px;
+    width: 270px;
+    border: 2px;
+}
+
+#creature_add_size {
+    cursor: pointer;
+}
+
+#creature_upload_bar, #adventurer_upload_bar, #background_upload_bar {
+    height: 20px;
+}
+
+#successfully_added_adventurer, #successfully_added_creature, 
+#successfully_added_background {
+    color: #96f226;
+}
+
+.unsuccessfully_added 
+{
+    color: #f23e26;
+}
+
+body {
+    background-color: #ffffff;
+    transition: 0.3s ease-in;
+}
+
+.night_mode_body {
+    background-color: #1b1b1b;
+}
+
+.top_character {
+    z-index: 99;
+}
+
+
+
+
+
+#context_menu_delete_adventurer, #context_menu_delete_creature, #context_menu_delete_background {
+    width: 200px;
+}
+
+
+
+
+
+
+
+
+
+#loading-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #222;
+  }
+  
+  #loading-text {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #999;
+    width: 100px;
+    height: 30px;
+    margin: -7px 0 0 -45px;
+    text-align: center;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 20px;
+  }
+  
+  #loading-content {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 170px;
+    height: 170px;
+    margin: -85px 0 0 -85px;
+    border: 3px solid #F00;
+  }
+  
+  #loading-content:after {
+    content: "";
+    position: absolute;
+    border: 3px solid #0F0;
+    left: 15px;
+    right: 15px;
+    top: 15px;
+    bottom: 15px;
+  }
+  
+  #loading-content:before {
+    content: "";
+    position: absolute;
+    border: 3px solid #00F;
+    left: 5px;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+  }
+  
+  #loading-content {
+    border: 3px solid transparent;
+    border-top-color: #9fda58;
+    border-bottom-color: #9fda58;
+    border-radius: 50%;
+    -webkit-animation: loader 2s linear infinite;
+    -moz-animation: loader 2s linear infinite;
+    -o-animation: loader 2s linear infinite;
+    animation: loader 2s linear infinite;
+  }
+  
+  #loading-content:before {
+    border: 3px solid transparent;
+    border-top-color: #ffffff;
+    border-bottom-color: #ffffff;
+    border-radius: 50%;
+    -webkit-animation: loader 3s linear infinite;
+      -moz-animation: loader 2s linear infinite;
+    -o-animation: loader 2s linear infinite;
+    animation: loader 3s linear infinite;
+  }
+  
+  #loading-content:after {
+    border: 3px solid transparent;
+    border-top-color: #4c4c4c;
+    border-bottom-color: #4c4c4c;
+    border-radius: 50%;
+    -webkit-animation: loader 1.5s linear infinite;
+    animation: loader 1.5s linear infinite;
+      -moz-animation: loader 2s linear infinite;
+    -o-animation: loader 2s linear infinite;
+  }
+  
+  @-webkit-keyframes loaders {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes loader {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+
+
+
+#dnd_combater_container button:focus, #background_selector-button:focus {
+    outline: none;
+}
+
+
+
+#new_adventurer {
+    width: 135px;
+    background-color: #000000;
+    height: 200px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid #ffffff;
+    margin-left: 5px;
+    text-align: center;
+
+    transition: 0.25s ease-in;
+}
+
+#new_adventurer:hover {
+    background-color: #ffffff;
+    color: black;
+}
+
+#plus_sign {
+    position: relative;
+    top: 51px;
+    font-size: 55px;
+}
+
+#new_adventurer_text {
+    position: relative;
+    top: 43px;
+    font-size: 15px;
+}
+
+#max_adventurers {
+    font-size: 13px;    
+}
+
+
+#tabs-4 div {
+    cursor: pointer;
+}
+
+.navbar-item img {
+    max-height: 90%;
+}
+
+#donation_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donation_box form {
+    margin-left: 20px;
+}

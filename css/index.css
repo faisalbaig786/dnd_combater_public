@@ -1,0 +1,316 @@
+#firebaseui-auth-container {
+    margin-top: 5vh;
+}
+
+#white-fade-in {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background-color: rgb(255, 255, 255);
+}
+
+#login_background {
+    position: absolute;
+}
+
+#warning_mobile_device {
+    position: absolute;
+    z-index: 100;
+    top: 54px;
+}
+
+#info_message {
+    position: absolute;
+    z-index: 99;
+    top: 54px;
+}
+
+#combater_title {
+    font-family: 'Major Mono Display', monospace;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #f5f5f5;
+    position: relative;
+    text-align: center;
+    margin-top: 2vh;
+}
+
+#welcome_container {
+    margin-top: 2vh;
+}
+
+#get_started {
+    line-height: 33px;
+}
+
+#main_container {
+    margin-top: 3vh;
+    margin-bottom: 10vh;
+}
+
+#devices {
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+#devices .level-item {
+    max-width: 200px;
+}
+
+#character_control_gif img {
+    border: 5px black solid;
+    border-radius: 5px;
+}
+
+#easy_setup {
+    text-align: center;
+}
+
+#character_test_images {
+    flex-wrap: wrap;
+}
+
+#character_test_images img:not(:last-child) {
+    max-width: 100px;
+}
+
+#character_test_images img:last-child {
+    max-width: 175px;
+}
+
+#character_test_images .adventurer_green {
+    border: 3px #96f226 solid;
+    border-radius: 30px;
+}
+
+#character_test_images .creature_red {
+    border: 3px #f23e26 solid;
+    border-radius: 30px;
+}
+
+#right_arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(90deg);
+}
+
+#right_arrow img {
+    max-width: 50px;
+}
+
+#combat_sample {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#combat_sample img {
+    border-radius: 15px;
+}
+
+.column.dnd_mobile {
+    display: block;
+}
+
+.column.dnd_desktop {
+    display: none;
+}
+
+#other_features {
+    text-align: center;
+}
+
+#other_features div:last-of-type img {
+    max-width: 220px;
+}
+
+.navbar-item img {
+    max-height: 90%;
+}
+
+.slick-slide {
+    margin: 10px;
+}
+
+#custom_background_sample {
+    border: 4px solid #a5502a;
+    border-radius: 5px;
+}
+
+#go_to_combater {
+    text-align: center;
+    position: relative;
+}
+
+#go_to_combater img {
+    border-radius: 10px;
+    box-shadow: 0 0 15px #2C3E50;
+}
+
+#go_to_combater div {
+    position: relative;
+    top: 114px;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #f5f5f5;
+}
+
+#verify_email {
+    background-color: #fff;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: rgba(0,0,0,.87);
+    direction: ltr;
+    padding: 30px;
+    font: 16px Roboto,arial,sans-serif;
+    margin: 0 auto;
+    margin-top: 5vh;
+    max-width: 360px;
+    overflow: visible;
+    position: relative;
+    text-align: left;
+    width: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 
+    0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+#verify_email div {
+    padding-bottom: 20px;
+    color: rgba(0,0,0,.87);
+    direction: ltr;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0;
+    text-align: left;
+}
+
+#correct_email {
+    margin-bottom: 10px;
+}
+
+#go_to_combater .button {
+    position: relative;
+    bottom: 91px;
+}
+
+#donation_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donation_box form {
+    margin-left: 20px;
+}
+
+@media screen and (min-width: 582px) {
+    #combater_title {
+        margin-top: 5vh;
+        font-size: 4rem;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    #right_arrow {
+        transform: rotate(0);
+    }
+    .column.dnd_mobile {
+        display: none;
+    }
+    .column.dnd_desktop {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 1088px) {
+    #welcome_container {
+        max-width: 400px;
+    }
+
+    #main_container {
+        margin-top: 20vh;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    #welcome_container {
+        max-width: 500px;
+    }
+}
+
+@media screen and (min-width: 1472px) {
+    #welcome_container {
+        max-width: 600px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.shadow_effect
+{
+  	position:relative;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.shadow_effect:before, .shadow_effect:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:0;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.shadow_effect:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+.shadow_effect {
+    transition: 0.25s ease;
+}
+.shadow_effect:hover {
+    transform: scale(1.1);
+    transition: 0.25s ease;
+}
